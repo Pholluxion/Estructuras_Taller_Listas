@@ -63,18 +63,14 @@ bool deleteNode(int node, List<dynamic> myList) {
   }
 }
 
-bool searchNode() {
-  return true;
+dynamic searchNode(int node, List<dynamic> myList) {
+  if (myList.length >= node) {
+    return myList.elementAt(node);
+  }
 }
 
-int getLengthList(List<dynamic> myList) {
-  return myList.length;
-}
+int getLengthList(List<dynamic> myList) => myList.length;
 
-bool checkEmptyList(List<dynamic> myList) {
-  return myList.isEmpty;
-}
+bool checkEmptyList(List<dynamic> myList) => myList.isEmpty;
 
-List<dynamic> setEmptyList() {
-  return [];
-}
+List<dynamic> setEmptyList() => [];
