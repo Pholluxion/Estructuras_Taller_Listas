@@ -16,14 +16,13 @@ List<int> createList(int nodes) {
 }
 
 void showList(List<dynamic> myList) {
-  stdout.write('${'======' * myList.length}\n');
-  stdout.write('${'  ' * myList.length}Tú Lista es${' ' * myList.length}\n');
-  stdout.write('${'======' * myList.length}\n');
+  stdout.writeln('======' * myList.length);
+  stdout.writeln('${'  ' * myList.length}Tú Lista es${' ' * myList.length}');
+  stdout.writeln('======' * myList.length);
   for (var element in myList) {
     stdout.write(' [$element] ');
   }
-
-  stdout.write('\n${'======' * myList.length}\n');
+  stdout.writeln('\n${'======' * myList.length}');
 }
 
 void showMenu() {
@@ -56,7 +55,7 @@ bool deleteNode(int node, List<dynamic> myList) {
     myList.removeAt(node);
     return true;
   } catch (e) {
-    stdout.write(e.toString());
+    stdout.writeln('$e\n\n');
     return false;
   } finally {
     showList(myList);
@@ -74,3 +73,74 @@ int getLengthList(List<dynamic> myList) => myList.length;
 bool checkEmptyList(List<dynamic> myList) => myList.isEmpty;
 
 List<dynamic> setEmptyList() => [];
+
+List<dynamic> insertMenu(List<dynamic> myList) {
+  String menu = '''
+\n\n=========================
+    Menu de inserción
+=========================
+a. Insertar Nodo al inicio
+b. Insertar Nodo al final
+c. Insertar Nodo antes del Elemento X
+d. Insertar Nodo después del Elemento X
+  ''';
+
+  stdout.writeln(menu);
+
+  while (true) {
+    stdout.write('---->: ');
+    final input = stdin.readLineSync();
+
+    switch (input) {
+      case 'a':
+      case 'A':
+        clearTerminal();
+        print('a. Insertar Nodo al inicio');
+        stdout.write('Insertar: ');
+        final element = int.parse(stdin.readLineSync()!);
+        myList.insert(0, element);
+
+        break;
+      case 'b':
+      case 'B':
+        clearTerminal();
+        print('b. Insertar Nodo al final');
+        stdout.write('Insertar: ');
+        final element = int.parse(stdin.readLineSync()!);
+        myList.insert(myList.length - 1, element);
+
+        break;
+      case 'c':
+      case 'C':
+        clearTerminal();
+        print('Insertar Nodo antes del Elemento X');
+        stdout.write('Insertar: ');
+        final element = int.parse(stdin.readLineSync()!);
+        stdout.write('Antes del elemento: ');
+        final elementX = int.parse(stdin.readLineSync()!);
+        myList.insert(elementX - 1, element);
+
+        break;
+      case 'd':
+      case 'D':
+        clearTerminal();
+        print('Insertar Nodo después del Elemento X');
+        stdout.write('Insertar: ');
+        final element = int.parse(stdin.readLineSync()!);
+        stdout.write('Despues del elemento: ');
+        final elementX = int.parse(stdin.readLineSync()!);
+        myList.insert(elementX + 1, element);
+
+        break;
+      default:
+        clearTerminal();
+
+        showList(myList);
+        print('\nSeleccione una opción valida');
+        showMenu();
+
+        break;
+    }
+    return myList;
+  }
+}

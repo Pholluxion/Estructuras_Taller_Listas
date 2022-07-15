@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:listas_app/utils/list_methods.dart';
 
 void main(List<String> arguments) {
-  stdout.write('Inserte el numero de nodos: ');
+  stdout.write('Digite el numero de nodos: ');
   final input = stdin.readLineSync();
 
-  final List<dynamic> myList = createList(int.parse(input!));
+  List<dynamic> myList = createList(int.parse(input!));
 
   clearTerminal();
 
@@ -22,12 +22,15 @@ void main(List<String> arguments) {
       case 'A':
         clearTerminal();
         print('a. Insertar Nodo');
-
+        myList = insertMenu(myList);
         break;
       case 'b':
       case 'B':
         clearTerminal();
         print('b. Eliminar Nodo');
+        stdout.write('Digite el nodo que desea eliminar: ');
+        final input = stdin.readLineSync();
+        deleteNode(int.parse(input!), myList);
 
         break;
       case 'c':
@@ -64,7 +67,7 @@ void main(List<String> arguments) {
         clearTerminal();
 
         showList(myList);
-        print('Seleccione una opción valida');
+        print('\nSeleccione una opción valida');
         showMenu();
 
         break;
