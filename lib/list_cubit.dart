@@ -16,14 +16,42 @@ class ListCubit extends Cubit<List<dynamic>> {
   }
 
   void insertNodeBeforeX(dynamic value, dynamic x) {
-    final int index = state.indexOf(x);
-    state.insert((index), value);
+    List<int> indexList = [];
+    int i = 0;
+    for (var element in state) {
+      if (element == x) {
+        indexList.add(i);
+      }
+      i++;
+    }
+
+    i = 0;
+
+    for (var index in indexList) {
+      state.insert(index + i, value);
+      i++;
+    }
+
     emit(state);
   }
 
   void insertNodeAfterX(dynamic value, dynamic x) {
-    final int index = state.indexOf(x);
-    state.insert((index + 1), value);
+    List<int> indexList = [];
+    int i = 0;
+    for (var element in state) {
+      if (element == x) {
+        indexList.add(i);
+      }
+      i++;
+    }
+
+    i = 0;
+
+    for (var index in indexList) {
+      state.insert((index + 1) + i, value);
+      i++;
+    }
+
     emit(state);
   }
 
@@ -56,7 +84,7 @@ class ListCubit extends Cubit<List<dynamic>> {
   void emptyList() => emit([]);
 
   void initList() {
-    stdout.write('Digite el numero de nodos: ');
+    stdout.write('\nDigite el numero de nodos: ');
     final input = stdin.readLineSync();
 
     try {
