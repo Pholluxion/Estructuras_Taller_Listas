@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 
@@ -97,6 +98,24 @@ class ListCubit extends Cubit<List<dynamic>> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  /// Código = 2172336
+  /// N = (último dígito del código de estudiante) * 3 = (6)*3
+  /// N =  18
+
+  void initRandomList() {
+    const N = 6 * 3;
+    final rand = Random();
+
+    stdout.writeln('\nNumero de nodos: $N');
+
+    for (int i = 0; i < N; i++) {
+      final val = rand.nextInt(100);
+      stdout.write('\nValor del nodo [${i + 1}]: $val');
+      state.add(val);
+      emit(state);
     }
   }
 }

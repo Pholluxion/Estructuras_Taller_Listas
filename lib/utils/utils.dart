@@ -8,8 +8,8 @@ final list = ListCubit();
 final _repo = Repo();
 
 Future<void> printMenu() async {
-  list.initList();
-
+  //list.initList();
+  list.initRandomList();
   Console.init();
 
   while (true) {
@@ -52,7 +52,8 @@ String _initChooser(List<String> opc) {
   return chooser.chooseSync();
 }
 
-void _clearTerminal() => print("\x1B[2J\x1B[0;0H");
+// void _clearTerminal() => print("\x1B[2J\x1B[0;0H");
+void _clearTerminal() => print("\n");
 
 void _executeOpc(String opc) {
   switch (opc) {
@@ -135,7 +136,7 @@ void _executeOpcInsert(String opc) async {
         stdout.write('Despues del elemento: ');
         final elementX = stdin.readLineSync();
         list.insertNodeAfterX(element, elementX);
-        print(list.state);
+        //print(list.state);
       } catch (e) {
         print(e);
         await Future.delayed(Duration(seconds: 5));
