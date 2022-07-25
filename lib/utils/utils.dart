@@ -67,8 +67,8 @@ String _initChooser(List<String> opc) {
   return chooser.chooseSync();
 }
 
-void _clearTerminal() => print("\x1B[2J\x1B[0;0H");
-// void _clearTerminal() => print("\n");
+// void _clearTerminal() => print("\x1B[2J\x1B[0;0H");
+void _clearTerminal() => print("\n");
 
 void _executeOpc(String opc) {
   switch (opc) {
