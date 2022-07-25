@@ -56,20 +56,31 @@ class ListCubit extends Cubit<List<dynamic>> {
     emit(state);
   }
 
-  void deleteNode(int node) {
-    if (node == 0) {
-      return;
-    }
-
-    state.removeAt(node - 1);
+  void deleteNodeInit() {
+    state.removeAt(0);
     emit(state);
   }
 
-  dynamic searchNode(int node) {
-    if (node > state.length || node < 0) {
-      return;
+  void deleteNodeEnd() {
+    state.removeLast();
+    emit(state);
+  }
+
+  dynamic searchNode(dynamic val) {
+    List<int> index = [];
+    int i = 0;
+    for (dynamic value in state) {
+      if (value.toString() == val) {
+        index.add(state.indexOf(value, i) + 1);
+      }
+      i++;
     }
-    return state.elementAt(node - 1);
+    if (index.isNotEmpty) {
+      stdout.write(
+          '\nLa posición numérica donde está el nodo en la lista: $index');
+    } else {
+      stdout.write('\nLa lista no contiene el elemento');
+    }
   }
 
   int getListSize() => state.length;
@@ -77,9 +88,17 @@ class ListCubit extends Cubit<List<dynamic>> {
   bool checkList() => state.isEmpty;
 
   void printList() {
+    stdout.writeln();
+    stdout.writeln("------" * state.length);
+    stdout
+        .writeln("${"   " * (state.length)}Tu lista${"   " * (state.length)}");
+    stdout.writeln("------" * state.length);
+
     for (var element in state) {
       stdout.write(' [$element] ');
     }
+    stdout.writeln();
+    stdout.writeln("------" * state.length);
   }
 
   void emptyList() => emit([]);

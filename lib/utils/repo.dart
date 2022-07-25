@@ -10,6 +10,11 @@ class Repo {
                   Menu Insert
 ==================================================
 ''';
+  String titleDelete = '''
+==================================================
+                  Menu Delete
+==================================================
+''';
 
   List<String> opcMenu = [
     'Insertar Nodo',
@@ -27,6 +32,12 @@ class Repo {
     'Insertar Nodo al final',
     'Insertar Nodo antes del Elemento X',
     'Insertar Nodo después del Elemento X',
+    'Salir'
+  ];
+
+  List<String> opcDelete = [
+    'Eliminar Nodo al inicio',
+    'Eliminar Nodo al final',
     'Salir'
   ];
 

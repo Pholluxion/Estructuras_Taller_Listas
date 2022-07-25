@@ -8,8 +8,8 @@ final list = ListCubit();
 final _repo = Repo();
 
 Future<void> printMenu() async {
-  //list.initList();
-  list.initRandomList();
+  list.initList();
+  // list.initRandomList();
   Console.init();
 
   while (true) {
@@ -41,6 +41,21 @@ Future<void> _menuInsert() async {
   }
 }
 
+Future<void> _menuDelete() async {
+  while (true) {
+    _clearTerminal();
+    _printTitle(_repo.titleDelete);
+
+    final opc = _initChooser(_repo.opcDelete);
+
+    if (opc == 'Salir') {
+      break;
+    }
+
+    _executeOpcDelete(opc);
+  }
+}
+
 void _printTitle(String title) =>
     stdout.write("$title \nTu lista es: ${list.state.toString()}\n\n");
 
@@ -52,8 +67,8 @@ String _initChooser(List<String> opc) {
   return chooser.chooseSync();
 }
 
-// void _clearTerminal() => print("\x1B[2J\x1B[0;0H");
-void _clearTerminal() => print("\n");
+void _clearTerminal() => print("\x1B[2J\x1B[0;0H");
+// void _clearTerminal() => print("\n");
 
 void _executeOpc(String opc) {
   switch (opc) {
@@ -61,20 +76,13 @@ void _executeOpc(String opc) {
       _menuInsert();
       break;
     case 'Eliminar Nodo':
-      stdout.write('\nDigite el nodo que desea eliminar: ');
-      final input = stdin.readLineSync();
-      try {
-        list.deleteNode(int.parse(input!));
-      } catch (e) {
-        print(e);
-      }
+      _menuDelete();
       break;
     case 'Buscar Nodo':
       try {
-        stdout.write('\nDigite el nodo que desea buscar: ');
+        stdout.write('\nDigite el elemento que desea buscar: ');
         final input = stdin.readLineSync();
-        stdout.write(
-            '\nEl valor del nodo es ${list.searchNode(int.parse(input!))}');
+        list.searchNode(input);
       } catch (e) {
         print(e);
       }
@@ -83,9 +91,7 @@ void _executeOpc(String opc) {
       stdout.write('\nEl tamaño de la lista es: ${list.getListSize()}');
       break;
     case 'Comprobar Lista Vacía':
-      list.checkList()
-          ? stdout.write('\nLa lista esta vacía')
-          : stdout.write('\nLa lista no esta vacía');
+      stdout.write('\n${list.checkList()}');
       break;
     case 'Mostrar Lista':
       list.printList();
@@ -136,11 +142,21 @@ void _executeOpcInsert(String opc) async {
         stdout.write('Despues del elemento: ');
         final elementX = stdin.readLineSync();
         list.insertNodeAfterX(element, elementX);
-        //print(list.state);
       } catch (e) {
         print(e);
         await Future.delayed(Duration(seconds: 5));
       }
+      break;
+  }
+}
+
+void _executeOpcDelete(String opc) async {
+  switch (opc) {
+    case 'Eliminar Nodo al inicio':
+      list.deleteNodeInit();
+      break;
+    case 'Eliminar Nodo al final':
+      list.deleteNodeEnd();
       break;
   }
 }
